@@ -8,10 +8,14 @@ function App() {
 
   const addItem = (text) => {
     let id = 1;
+    
     if(items.length > 0) {
       id = items[0].id + 1
     }
     let item = {id: id, text: text, returned: false}
+    if (!item.text || /^\s*$/.test(item.text)) {
+      return;
+    }
     let newItems = [item, ...items]
     setItems(newItems)
   };
@@ -43,7 +47,8 @@ function App() {
           <CheckoutItem removeItem={removeItem} returnItem={returnItem} item={sitem} key={sitem.id}/>
         )
       })}
-    </div><div className="calc1">{items.filter(citem => !citem.returned).length} item checked out</div></>
+    </div><div className="calc1">{items.filter(citem => !citem.returned).length} item checked out</div>
+    </>
   );
 }
 
